@@ -31,6 +31,8 @@ fun EnumTeste.to2() = when(this){
 }
 
 fun main() {
+    val name: String = EnumTeste.ITEM1.name
+    println(name)
     println(ClasseTeste(EnumTeste.ITEM1).to2())
     println(ClasseTeste(EnumTeste.ITEM2).to2())
     println(ClasseTeste(EnumTeste.ITEM3).to2())
