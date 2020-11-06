@@ -10,7 +10,9 @@ class DummyExamplesTest {
 
     @Test
     fun `test which cannot throw exception`() {
-        assertDoesNotThrow(Executable { doSomething() })
+        //assertDoesNotThrow(Executable { doSomething() })
+        //assertDoesNotThrow({ doSomething() })
+        assertDoesNotThrow { doSomething() }
     }
 
     @Test
