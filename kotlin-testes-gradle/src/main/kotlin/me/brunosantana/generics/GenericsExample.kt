@@ -1,4 +1,4 @@
-package me.brunosantana
+package me.brunosantana.generics
 
 interface DataLakeUpdater<T>{
     fun updateDataLake(data: String): List<T>
