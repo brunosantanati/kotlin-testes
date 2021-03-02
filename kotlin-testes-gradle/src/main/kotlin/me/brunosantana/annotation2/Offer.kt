@@ -1,15 +1,15 @@
 package me.brunosantana.annotation2
 
 data class Offer (
-    @ReplaceContent(value = "name")
+    @ReplaceFieldContent(value = "name")
     val name: String,
 
-    @ReplaceContent(value = "other")
+    @ReplaceFieldContent(value = "other")
     val otherField: String,
 
-    @ReplaceContentForList(value = "coverages")
+    @ReplaceListContent(value = "coverages")
     val coverages: List<Coverage>,
 
-    @ReplaceContentForList(value = "benefits")
+    @ReplaceListContent(value = "benefits")
     val benefits: List<Benefit>
 )

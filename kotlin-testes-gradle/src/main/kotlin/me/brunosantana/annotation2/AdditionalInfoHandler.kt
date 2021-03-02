@@ -13,10 +13,10 @@ class AdditionalInfoHandler {
         for (field in fields) {
             field.isAccessible = true
             for (annotation in field.annotations) {
-                if (field.isAnnotationPresent(ReplaceContent::class.java)) {
+                if (field.isAnnotationPresent(ReplaceFieldContent::class.java)) {
                     replaceFieldContent(field, additionalInfo, offer)
-                }else if(field.isAnnotationPresent(ReplaceContentForList::class.java)){
-                    replaceContentFromList(field, additionalInfoForLists, offer)
+                }else if(field.isAnnotationPresent(ReplaceListContent::class.java)){
+                    replaceListContent(field, additionalInfoForLists, offer)
                 }
             }
         }
@@ -27,17 +27,17 @@ class AdditionalInfoHandler {
         additionalInfo: Map<String, String>,
         offer: Offer
     ) {
-        val key = field.getAnnotation(ReplaceContent::class.java).value
+        val key = field.getAnnotation(ReplaceFieldContent::class.java).value
         val newContent = additionalInfo.get(key)
         if (newContent != null) field.set(offer, newContent)
     }
 
-    private fun replaceContentFromList(
+    private fun replaceListContent(
         field: Field,
         additionalInfoForLists: Map<String, Map<String, String>>,
-        offer: Offer,
+        offer: Offer
     ){
-        val annotationValue = field.getAnnotation(ReplaceContentForList::class.java).value
+        val annotationValue = field.getAnnotation(ReplaceListContent::class.java).value
         if(annotationValue == "coverages"){
             val value = field.get(offer)
             val coverages = value as List<Coverage>
@@ -46,8 +46,8 @@ class AdditionalInfoHandler {
                 for (coverageField in coverageFields) {
                     coverageField.isAccessible = true
                     for (annotation in coverageField.annotations) {
-                        if (coverageField.isAnnotationPresent(ReplaceContent::class.java)) {
-                            val key = coverageField.getAnnotation(ReplaceContent::class.java).value
+                        if (coverageField.isAnnotationPresent(ReplaceFieldContent::class.java)) {
+                            val key = coverageField.getAnnotation(ReplaceFieldContent::class.java).value
                             val coverageMap = additionalInfoForLists.get(key)
                             if (coverageMap?.get(coverage.id) != null) {
                                 val newContent = coverageMap?.get(coverage.id)
@@ -65,8 +65,8 @@ class AdditionalInfoHandler {
                 for (benefitField in benefitFields) {
                     benefitField.isAccessible = true
                     for (annotation in benefitField.annotations) {
-                        if (benefitField.isAnnotationPresent(ReplaceContent::class.java)) {
-                            val key = benefitField.getAnnotation(ReplaceContent::class.java).value
+                        if (benefitField.isAnnotationPresent(ReplaceFieldContent::class.java)) {
+                            val key = benefitField.getAnnotation(ReplaceFieldContent::class.java).value
                             val benefitMap = additionalInfoForLists.get(key)
                             if (benefitMap?.get(benefit.id) != null) {
                                 val newContent = benefitMap?.get(benefit.id)
