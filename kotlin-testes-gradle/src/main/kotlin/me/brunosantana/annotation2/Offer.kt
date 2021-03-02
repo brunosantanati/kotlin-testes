@@ -8,5 +8,8 @@ data class Offer (
     val otherField: String,
 
     @ReplaceContentForList(value = "coverages")
-    val coverages: List<Coverage>
+    val coverages: List<Coverage>,
+
+    @ReplaceContentForList(value = "benefits")
+    val benefits: List<Benefit>
 )

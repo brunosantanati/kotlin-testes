@@ -57,6 +57,25 @@ class AdditionalInfoHandler {
                     }
                 }
             }
+        }else if(annotationValue == "benefits"){
+            val value = field.get(offer)
+            val benefits = value as List<Benefit>
+            for(benefit in benefits){
+                val benefitFields = benefit::class.java.declaredFields
+                for (benefitField in benefitFields) {
+                    benefitField.isAccessible = true
+                    for (annotation in benefitField.annotations) {
+                        if (benefitField.isAnnotationPresent(ReplaceContent::class.java)) {
+                            val key = benefitField.getAnnotation(ReplaceContent::class.java).value
+                            val benefitMap = additionalInfoForLists.get(key)
+                            if (benefitMap?.get(benefit.id) != null) {
+                                val newContent = benefitMap?.get(benefit.id)
+                                benefitField.set(benefit, newContent)
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 
