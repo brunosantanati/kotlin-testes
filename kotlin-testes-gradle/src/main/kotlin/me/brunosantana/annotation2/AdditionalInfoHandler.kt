@@ -38,40 +38,32 @@ class AdditionalInfoHandler {
         offer: Offer
     ){
         val annotationValue = field.getAnnotation(ReplaceListContent::class.java).value
+        val value = field.get(offer)
+
         if(annotationValue == "coverages"){
-            val value = field.get(offer)
             val coverages = value as List<Coverage>
-            for(coverage in coverages){
-                val coverageFields = coverage::class.java.declaredFields
-                for (coverageField in coverageFields) {
-                    coverageField.isAccessible = true
-                    for (annotation in coverageField.annotations) {
-                        if (coverageField.isAnnotationPresent(ReplaceFieldContent::class.java)) {
-                            val key = coverageField.getAnnotation(ReplaceFieldContent::class.java).value
-                            val coverageMap = additionalInfoForLists.get(key)
-                            if (coverageMap?.get(coverage.id) != null) {
-                                val newContent = coverageMap?.get(coverage.id)
-                                coverageField.set(coverage, newContent)
-                            }
-                        }
-                    }
-                }
-            }
+            replaceContentFromEachItemOfList(additionalInfoForLists, coverages)
         }else if(annotationValue == "benefits"){
-            val value = field.get(offer)
             val benefits = value as List<Benefit>
-            for(benefit in benefits){
-                val benefitFields = benefit::class.java.declaredFields
-                for (benefitField in benefitFields) {
-                    benefitField.isAccessible = true
-                    for (annotation in benefitField.annotations) {
-                        if (benefitField.isAnnotationPresent(ReplaceFieldContent::class.java)) {
-                            val key = benefitField.getAnnotation(ReplaceFieldContent::class.java).value
-                            val benefitMap = additionalInfoForLists.get(key)
-                            if (benefitMap?.get(benefit.id) != null) {
-                                val newContent = benefitMap?.get(benefit.id)
-                                benefitField.set(benefit, newContent)
-                            }
+            replaceContentFromEachItemOfList(additionalInfoForLists, benefits)
+        }
+    }
+
+    private fun <E> replaceContentFromEachItemOfList(
+        additionalInfoForLists: Map<String, Map<String, String>>,
+        listItems: List<E>
+    ) where E: ReplaceableList {
+        for(item in listItems){
+            val itemFields = item!!::class.java.declaredFields
+            for (itemField in itemFields) {
+                itemField.isAccessible = true
+                for (annotation in itemField.annotations) {
+                    if (itemField.isAnnotationPresent(ReplaceFieldContent::class.java)) {
+                        val key = itemField.getAnnotation(ReplaceFieldContent::class.java).value
+                        val itemMap = additionalInfoForLists.get(key)
+                        val newContent = itemMap?.get(item.id)
+                        if (newContent != null) {
+                            itemField.set(item, newContent)
                         }
                     }
                 }
