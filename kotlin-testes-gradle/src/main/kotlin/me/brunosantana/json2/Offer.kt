@@ -1,7 +1,12 @@
 package me.brunosantana.json2
 
+import com.google.gson.annotations.SerializedName
+
 data class Offer (
-    val offerCode: String,
-    val offerName: String,
+    @SerializedName("offerCode")
+    val code: String,
+    @SerializedName("offerName")
+    val name: String,
+    @SerializedName("coverages")
     val coverages: List<Coverage>
 )

@@ -15,5 +15,5 @@ fun main(args: Array<String>) {
 
     var offerAllInformation = gson.fromJson(inputString, OfferAllInformation::class.java)
     println(offerAllInformation)
-    println(offerAllInformation.product.productName)
+    println(offerAllInformation.product.name)
 }
