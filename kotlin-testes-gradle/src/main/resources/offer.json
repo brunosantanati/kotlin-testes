@@ -1,0 +1,20 @@
+{
+  "product": {
+    "productCode": 1,
+    "productName": "Cartão protegido"
+  },
+  "offer": {
+    "offerCode": 1,
+    "offerName": "Oferta Plus",
+    "coverages": [
+      {
+        "coverageCode": 1,
+        "coverageName": "Perda ou roubo cartão"
+      },
+      {
+        "coverageCode": 2,
+        "coverageName": "Compra sob coação"
+      }
+    ]
+  }
+}
