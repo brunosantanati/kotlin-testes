@@ -1,0 +1,24 @@
+{
+  "product": {
+    "productCode": 1,
+    "productName": "Cartão protegido (Extra)",
+    "productDescription": "O cartão protegido é o melhor produto de cartão que existe."
+  },
+  "offer": {
+    "offerCode": 1,
+    "offerName": "Oferta Plus",
+    "offerDescription": "Oferta Plus é uma oferta que oferece bla bla bla...",
+    "coverages": [
+      {
+        "coverageCode": 1,
+        "coverageName": "Perda ou roubo cartão",
+        "coverageDescription": "Coverage 1 description"
+      },
+      {
+        "coverageCode": 2,
+        "coverageName": "Compra sob coação",
+        "coverageDescription": "Coverage 2 description"
+      }
+    ]
+  }
+}

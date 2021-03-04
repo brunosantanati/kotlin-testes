@@ -43,6 +43,9 @@ dependencies {
 
     //Gson
     implementation 'com.google.code.gson:gson:2.8.6'
+
+    //Klaxon
+    implementation 'com.beust:klaxon:5.5'
 }
 
 test {
