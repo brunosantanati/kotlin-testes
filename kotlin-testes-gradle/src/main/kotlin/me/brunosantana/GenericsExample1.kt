@@ -27,14 +27,16 @@ fun main() {
     println(product2)
 }
 
-fun iterateOverList(offers: List<out Offer>){
+//fun iterateOverList(offers: List<out Offer>){
+fun iterateOverList(offers: List<Offer>){
     for(offer in offers){
         println(offer)
     }
 }
 
 data class Product(
-    val offers: List<out Offer>
+    //val offers: List<out Offer>
+    val offers: List<Offer>
 )
 
 abstract class Offer
