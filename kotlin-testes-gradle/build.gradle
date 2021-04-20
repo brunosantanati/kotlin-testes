@@ -46,6 +46,10 @@ dependencies {
 
     //Klaxon
     implementation 'com.beust:klaxon:5.5'
+
+    //OpenCSV
+    implementation group: 'com.opencsv', name: 'opencsv', version: '5.4'
+
 }
 
 test {
