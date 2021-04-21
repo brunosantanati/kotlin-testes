@@ -50,6 +50,10 @@ dependencies {
     //OpenCSV
     implementation group: 'com.opencsv', name: 'opencsv', version: '5.4'
 
+    //Amazon
+    implementation group: 'com.amazonaws', name: 'aws-java-sdk-s3', version: '1.11.1001'
+
+
 }
 
 test {
