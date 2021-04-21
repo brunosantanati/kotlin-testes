@@ -12,6 +12,7 @@ import java.io.Writer
 
 //https://www.baeldung.com/opencsv
 //https://docs.aws.amazon.com/pt_br/sdk-for-java/v1/developer-guide/examples-s3-objects.html#upload-object
+//https://docs.aws.amazon.com/pt_br/sdk-for-java/v1/developer-guide/setup-credentials.html
 
 /*Antes de rodar criar os arquivos:
 
