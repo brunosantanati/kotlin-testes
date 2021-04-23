@@ -33,10 +33,29 @@ data class MyBean2(
     val colC: String,
 )
 
+data class MyBean3(
+    val colA: String,
+    val colB: String,
+    val colC: String,
+    val calD: String,
+)
+
 fun main() {
 
+    val bucketName = "bruno-csv-bucket"
+
     val s3: AmazonS3 = AmazonS3ClientBuilder.defaultClient()
-    s3.putObject("bruno-csv-bucket", "my-test-2.csv", getCsvAsInputStream(), null);
+    s3.putObject(bucketName, "my-test-2.csv", getCsvAsInputStream(), null);
+
+    val list1: MutableList<MyBean2> = ArrayList<MyBean2>()
+    list1.add(MyBean2("AAA", "BBB", "CCC"))
+    list1.add(MyBean2("DDD", "EEE", "FFF"))
+    s3.putObject(bucketName, "my-test-generic-1.csv", getCsvAsInputStreamGeneric(list1), null);
+
+    val list2: MutableList<MyBean3> = ArrayList<MyBean3>()
+    list2.add(MyBean3("AAA", "BBB", "CCC", "DDD"))
+    list2.add(MyBean3("EEE", "FFF", "GGG", "HHH"))
+    s3.putObject(bucketName, "my-test-generic-2.csv", getCsvAsInputStreamGeneric(list2), null);
 
 }
 
@@ -52,6 +71,21 @@ fun getCsvAsInputStream(): InputStream {
     val list: MutableList<MyBean2> = ArrayList<MyBean2>()
     list.add(MyBean2("Linha 1 Coluna A", "Linha 1 Coluna B", "Linha 1 Coluna C"))
     list.add(MyBean2("Linha 2 Coluna A", "Linha 2 Coluna B", "Linha 2 Coluna C"))
+
+    beanToCsv.write(list)
+    streamWriter.flush()
+
+    return ByteArrayInputStream(stream.toByteArray());
+}
+
+fun <T: Any> getCsvAsInputStreamGeneric(list: List<T>): InputStream {
+    val stream = ByteArrayOutputStream()
+    val streamWriter = OutputStreamWriter(stream)
+    val writer = CSVWriter(streamWriter, ';',
+        DEFAULT_QUOTE_CHARACTER, DEFAULT_ESCAPE_CHARACTER, RFC4180_LINE_END)
+
+    val beanToCsv: StatefulBeanToCsv<T> = StatefulBeanToCsvBuilder<T>(writer)
+        .build()
 
     beanToCsv.write(list)
     streamWriter.flush()
