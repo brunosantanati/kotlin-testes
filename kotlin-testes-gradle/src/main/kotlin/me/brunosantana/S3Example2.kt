@@ -4,6 +4,7 @@ import com.amazonaws.services.s3.AmazonS3
 import com.amazonaws.services.s3.AmazonS3ClientBuilder
 import java.util.ArrayList
 import com.opencsv.CSVWriter
+import com.opencsv.ICSVWriter.*
 import com.opencsv.bean.StatefulBeanToCsvBuilder
 import com.opencsv.bean.StatefulBeanToCsv
 import java.io.*
@@ -42,10 +43,10 @@ fun main() {
 fun getCsvAsInputStream(): InputStream {
     val stream = ByteArrayOutputStream()
     val streamWriter = OutputStreamWriter(stream)
-    val writer = CSVWriter(streamWriter)
+    val writer = CSVWriter(streamWriter, ';',
+        DEFAULT_QUOTE_CHARACTER, DEFAULT_ESCAPE_CHARACTER, RFC4180_LINE_END)
 
     val beanToCsv: StatefulBeanToCsv<MyBean2> = StatefulBeanToCsvBuilder<MyBean2>(writer)
-        .withSeparator(';') //It's not working in this example, the csv is being create with "," as delimiter
         .build()
 
     val list: MutableList<MyBean2> = ArrayList<MyBean2>()
