@@ -17,10 +17,11 @@ fun main(args: Array<String>) {
 @Throws(IOException::class)
 fun writeXLSXFile(path: String) {
     val excelFileName = "$path\\Test.xlsx" // name of excel file
-    val sheetName = "Sheet1" // name of sheet
     val wb = XSSFWorkbook()
-    val sheet: XSSFSheet = wb.createSheet(sheetName)
 
+    //### Sheet 1 ###
+    val sheetName = "Sheet1" // name of sheet
+    val sheet: XSSFSheet = wb.createSheet(sheetName)
     // iterating r number of rows
     for (r in 0..4) {
         val row: XSSFRow = sheet.createRow(r)
@@ -31,6 +32,21 @@ fun writeXLSXFile(path: String) {
             cell.setCellValue("Cell $r $c")
         }
     }
+
+    //### Sheet 2 ###
+    val sheetName2 = "Sheet2" // name of sheet
+    val sheet2: XSSFSheet = wb.createSheet(sheetName2)
+    // iterating r number of rows
+    for (r in 0..4) {
+        val row: XSSFRow = sheet2.createRow(r)
+
+        // iterating c number of columns
+        for (c in 0..4) {
+            val cell: XSSFCell = row.createCell(c)
+            cell.setCellValue("[2] Cell $r $c")
+        }
+    }
+
     val fileOut = FileOutputStream(excelFileName)
 
     // write this workbook to an Outputstream.
