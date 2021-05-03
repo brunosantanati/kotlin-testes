@@ -1,13 +1,12 @@
 ﻿package me.brunosantana
 
+import org.apache.poi.ss.usermodel.Font
+import org.apache.poi.xssf.usermodel.*
 import java.io.FileOutputStream
 import java.io.IOException
-import org.apache.poi.xssf.usermodel.XSSFCell;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 //Kotlin example based on my own Gist: https://gist.github.com/brunosantanati/21dec49880fa9c56d4b9b5baabb656b1
+//Example how to format cells: https://www.mysamplecode.com/2012/06/apache-poi-generate-excel-report.html
 
 // pass C:\\teste as a program argument
 fun main(args: Array<String>) {
@@ -24,12 +23,17 @@ fun writeXLSXFile(path: String) {
     val sheet: XSSFSheet = wb.createSheet(sheetName)
 
     // create headers manually
-    val headers = listOf("header 1", "header 2", "header 3", "header 4", "header 5")
+    val bold: Font = wb.createFont()
+    bold.bold = true
+    val csBold: XSSFCellStyle = wb.createCellStyle()
+    csBold.setFont(bold)
+    val headers = listOf("header 0", "header 1", "header 2", "header 3", "header 4")
     val row: XSSFRow = sheet.createRow(0)
     val iterator = headers.iterator()
     for((index, item) in iterator.withIndex()){
         val cell: XSSFCell = row.createCell(index)
         cell.setCellValue(item)
+        cell.cellStyle = csBold
     }
 
     // iterating r number of rows
