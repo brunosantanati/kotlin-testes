@@ -22,8 +22,18 @@ fun writeXLSXFile(path: String) {
     //### Sheet 1 ###
     val sheetName = "Sheet1" // name of sheet
     val sheet: XSSFSheet = wb.createSheet(sheetName)
+
+    // create headers manually
+    val headers = listOf("header 1", "header 2", "header 3", "header 4", "header 5")
+    val row: XSSFRow = sheet.createRow(0)
+    val iterator = headers.iterator()
+    for((index, item) in iterator.withIndex()){
+        val cell: XSSFCell = row.createCell(index)
+        cell.setCellValue(item)
+    }
+
     // iterating r number of rows
-    for (r in 0..4) {
+    for (r in 1..5) {
         val row: XSSFRow = sheet.createRow(r)
 
         // iterating c number of columns
