@@ -29,4 +29,24 @@ fun main() {
     println(blockedIds)
     val actions = jsonMap["actions"] as ArrayList<String>
     println(actions)
+
+    println("\nVALUES 2")
+    val nn = getValueFromMap(jsonMap, "n", "1000000")
+    println(nn)
+
+    val itDoesNotExist = getValueFromMap(jsonMap, "it_does_not_exist", "1000000")
+    println(itDoesNotExist)
+}
+
+fun getValueFromMap(jsonMap: Map<String, *>?, key: String, defaultValue: String): String{
+    if(jsonMap != null){
+        try {
+            val valueFromMap = jsonMap[key] as Double
+            return valueFromMap.toLong().toString()
+        }catch (e: Exception){
+            print(e.message)
+            println("Problem with the key: $key")
+        }
+    }
+    return defaultValue
 }
